@@ -1,4 +1,4 @@
-package com.mateus_lima.desafio.courses.course.exceptions;
+package com.mateus_lima.desafio.courses.exceptions;
 
 import com.mateus_lima.desafio.courses.course.dto.ErrorMessageDTO;
 import org.springframework.context.MessageSource;
