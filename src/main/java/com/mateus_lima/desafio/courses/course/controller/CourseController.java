@@ -17,8 +17,6 @@ public class CourseController {
     @PostMapping("/")
     public ResponseEntity<Object> create(@Valid @RequestBody CreateCourseRequestDTO createCourseRequestDTO){
         try {
-            System.out.println(createCourseRequestDTO.getName());
-            System.out.println(createCourseRequestDTO.getCategory());
           return   ResponseEntity.status(HttpServletResponse.SC_CREATED).body(createCourseRequestDTO);
         }catch (Exception exception){
             return  ResponseEntity.badRequest().body(exception.getMessage());
