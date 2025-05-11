@@ -3,6 +3,8 @@ package com.mateus_lima.desafio.courses.course.entity;
 import com.mateus_lima.desafio.courses.course.enums.TypeCategory;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -13,6 +15,8 @@ import java.util.UUID;
 
 @Data
 @Entity(name = "Courses")
+@Builder
+@AllArgsConstructor
 public class CourseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -24,7 +28,7 @@ public class CourseEntity {
     @Enumerated(EnumType.STRING)
     private TypeCategory category;
 
-    private Boolean active = true;
+    private Boolean active;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
