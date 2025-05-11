@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
@@ -15,8 +16,9 @@ import java.util.UUID;
 
 @Data
 @Entity(name = "Courses")
-@Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class CourseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

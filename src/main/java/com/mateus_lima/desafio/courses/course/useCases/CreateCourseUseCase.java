@@ -1,35 +1,36 @@
 package com.mateus_lima.desafio.courses.course.useCases;
 
 import com.mateus_lima.desafio.courses.course.dto.CreateCourseRequestDTO;
-import com.mateus_lima.desafio.courses.course.dto.CreateCourseResponseDTO;
+import com.mateus_lima.desafio.courses.course.dto.CourseResponseDTO;
 import com.mateus_lima.desafio.courses.course.entity.CourseEntity;
 import com.mateus_lima.desafio.courses.course.repository.CourseRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CreateCourseUseCase {
 
+    private final CourseRepository courseRepository;
 
-    @Autowired
-    private CourseRepository courseRepository;
+    public CourseResponseDTO execute(CreateCourseRequestDTO requestDTO) {
+        CourseEntity newCourse = CourseEntity.builder()
+                .name(requestDTO.getName())
+                .category(requestDTO.getCategory())
+                .active(true)
+                .build();
 
-    public CreateCourseResponseDTO execute(CreateCourseRequestDTO createCourseRequestDTO){
-
-       var newCourse = CourseEntity.builder()
-               .name(createCourseRequestDTO.getName())
-               .category(createCourseRequestDTO.getCategory())
-               .active(true)
-               .build();
-
-       var response = this.courseRepository.save(newCourse);
-
-        return  CreateCourseResponseDTO.builder()
-               .id(response.getId())
-               .active(response.getActive())
-               .category(response.getCategory())
-               .name(response.getName())
-               .build();
-
+        CourseEntity savedCourse = courseRepository.save(newCourse);
+        return toResponseDTO(savedCourse);
+    }
+    // Map
+    private CourseResponseDTO toResponseDTO(CourseEntity entity) {
+        return CourseResponseDTO.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .category(entity.getCategory())
+                .active(entity.getActive())
+                .build();
     }
 }
