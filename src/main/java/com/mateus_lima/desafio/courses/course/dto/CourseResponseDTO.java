@@ -18,3 +18,6 @@ public class CourseResponseDTO {
     private TypeCategory category;
     private Boolean active;
 }
+
+
+
