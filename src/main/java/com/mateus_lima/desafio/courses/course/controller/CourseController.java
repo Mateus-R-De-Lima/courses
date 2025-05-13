@@ -2,10 +2,7 @@ package com.mateus_lima.desafio.courses.course.controller;
 
 import com.mateus_lima.desafio.courses.course.dto.CreateCourseRequestDTO;
 import com.mateus_lima.desafio.courses.course.dto.UpdateCourseRequestDTO;
-import com.mateus_lima.desafio.courses.course.useCases.CreateCourseUseCase;
-import com.mateus_lima.desafio.courses.course.useCases.DeleteCourseUseCase;
-import com.mateus_lima.desafio.courses.course.useCases.GetAllCourseUseCase;
-import com.mateus_lima.desafio.courses.course.useCases.UpdateCourseUseCase;
+import com.mateus_lima.desafio.courses.course.useCases.*;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +21,7 @@ public class CourseController {
     private final CreateCourseUseCase createCourseUseCase;
     private final UpdateCourseUseCase updateCourseUseCase;
     private final DeleteCourseUseCase deleteCourseUseCase;
+    private final PatchCourseUseCase patchCourseUseCase;
 
     @PostMapping("/")
     public ResponseEntity<Object> create(@Valid @RequestBody CreateCourseRequestDTO createCourseRequestDTO) {
@@ -67,4 +65,13 @@ public class CourseController {
     }
 
 
+    @PatchMapping("/{id}")
+    public  ResponseEntity<Object> patch(@PathVariable UUID id){
+        try {
+            patchCourseUseCase.execute(id);
+            return  ResponseEntity.noContent().build();
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
